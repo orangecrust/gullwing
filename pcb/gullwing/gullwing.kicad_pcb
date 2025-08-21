@@ -8,9 +8,9 @@
 	)
 	(paper "A3")
 	(title_block
-		(title "regret")
+		(title "gullwing")
 		(rev "1")
-		(company "rschenk")
+		(company "orangecrust")
 	)
 	(layers
 		(0 "F.Cu" signal)
