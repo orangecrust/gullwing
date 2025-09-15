@@ -1,0 +1,104 @@
+/*
+ * Copyright (c) 2022 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <dt-bindings/zmk/matrix_transform.h>
+#include <input/processors.dtsi>
+
+/ {
+  chosen: chosen {
+    zmk,kscan = &kscan0;
+    zmk,matrix_transform = &physical_layout0;
+  };
+
+  default_transform: keymap_transform0 {
+    compatible = "zmk,matrix-transform";
+    columns = <10>;
+    rows = <4>;
+    map = <
+        RC(0,0) RC(0,1) RC(0,2) RC(0,3) RC(0,4)                                       RC(0,5) RC(0,6) RC(0,7) RC(0,8) RC(0,9)
+        RC(1,0) RC(1,1) RC(1,2) RC(1,3) RC(1,4)                                       RC(1,5) RC(1,6) RC(1,7) RC(1,8) RC(1,9)
+        RC(2,0) RC(2,1) RC(2,2) RC(2,3) RC(2,4)                                       RC(2,5) RC(2,6) RC(2,7) RC(2,8) RC(2,9)
+                               RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5) RC(3,6) RC(3,7) RC(3,8) RC(3,9)
+    >;
+  };
+
+  kscan0: kscan {
+    compatible = "zmk,kscan-gpio-matrix";
+    wakeup-source;
+
+    diode-direction = "row2col";
+
+    col-gpios
+        = <&gpio0 29 GPIO_ACTIVE_HIGH>  // 0
+        , <&gpio0 28 GPIO_ACTIVE_HIGH>  // 1
+        , <&gpio0 27 GPIO_ACTIVE_HIGH>  // 2
+        , <&gpio0 27 GPIO_ACTIVE_HIGH>  // 3
+        , <&gpio0 15 GPIO_ACTIVE_HIGH>  // 4
+        , <&gpio0 0 GPIO_ACTIVE_HIGH>  // 5
+        , <&gpio0 1 GPIO_ACTIVE_HIGH>  // 6
+        , <&gpio0 2 GPIO_ACTIVE_HIGH>  // 7
+        , <&gpio0 3 GPIO_ACTIVE_HIGH>  // 8
+        , <&gpio0 4 GPIO_ACTIVE_HIGH>  // 9
+        ;
+
+    row-gpios
+      = <&gpio0 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // 0
+      , <&gpio0 12 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // 1
+      , <&gpio0 12 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // 2
+      , <&gpio0 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // 3
+      ;
+
+  };
+};
+
+&pinctrl {
+    // sda=8 (i2c0)
+    // scl=9 (i2c0)
+    // dr=7
+    i2c0_default: i2c0_default {
+        group1 {
+            pinmux = <I2C0_SDA_P8>, <I2C0_SCL_P9>;
+            input-enable;
+            input-schmitt-enable;
+        };
+    };
+};
+
+&i2c0 {
+    status = "okay";
+    pinctrl-0 = <&i2c0_default>;
+    pinctrl-names = "default";
+    clock-frequency = <I2C_BITRATE_FAST>;
+};
+
+
+/* / { */
+/*     split_inputs { */
+/*         #address-cells = <1>; */
+/*         #size-cells = <0>; */
+/**/
+/*         glidepoint_split: glidepoint_split@0 { */
+/*             compatible = "zmk,input-split"; */
+/*             reg = <0>; */
+/*         }; */
+/*     }; */
+/**/
+/*     glidepoint_listener: glidepoint_listener { */
+/*         compatible = "zmk,input-listener"; */
+/*         status = "disabled"; */
+/*         device = <&glidepoint_split>; */
+/**/
+/*         // optional input processor */
+/*          input-processors = <&zip_xy_scaler 6 5>, <&zip_temp_layer 5 600>; */
+/**/
+/*         scroll { */
+/*             layers = <4>; */
+/*             input-processors = <&zip_xy_to_scroll_mapper>; */
+/*             process-next; */
+/*         }; */
+/*     }; */
+/* }; */
+

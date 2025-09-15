@@ -1,0 +1,9 @@
+file_format: "1"
+id: gullwing
+name: gullwing
+type: shield
+url: https://github.com/orangecrust/gullwing
+requires: [rp2040_zero]
+features:
+  - keys
+  - pointer

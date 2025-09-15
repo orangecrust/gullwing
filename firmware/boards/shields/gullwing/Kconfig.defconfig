@@ -1,0 +1,21 @@
+# Copyright (c) 2022 The ZMK Contributors
+# SPDX-License-Identifier: MIT
+
+# Sets some initial defaults when build keyboard
+
+if SHIELD_GULLWING
+
+config ZMK_KEYBOARD_NAME
+    default "Gullwing"
+
+config ZMK_SPLIT_ROLE_CENTRAL
+    default y
+
+config ZMK_USB
+    default y
+
+config I2C
+  default y
+
+endif # SHIELD_GULLWING
+

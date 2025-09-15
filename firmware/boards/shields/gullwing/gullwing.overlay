@@ -1,0 +1,41 @@
+/*
+ * Copyright (c) 2022 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include "gullwing.dtsi"
+#include <input/processors.dtsi>
+
+/* // enable listener, which is disabled by default in gullwing.dtsi */
+/* &glidepoint_listener { */
+/*     status = "okay"; */
+/* }; */
+
+/* &rp2040_zero_i2c { */
+/*     status = "okay"; */
+/**/
+/*     glidepoint: glidepoint@2a { */
+/*         compatible = "cirque,pinnacle"; */
+/*         reg = <0x2A>; */
+/*         status = "okay"; */
+/*         dr-gpios = <&gpio1 2 (GPIO_ACTIVE_HIGH)>; */
+/**/
+/*         sensitivity = "1x"; */
+/*         y-invert; */
+/*     }; */
+/* }; */
+
+/* &glidepoint_split { */
+/*     device = <&glidepoint>; */
+/**/
+/*     // optional input processor */
+/*     // input-processors = <&zip_xy_scaler 3 2>, <&zip_temp_layer 5 600>; */
+/*     input-processors = <&zip_xy_scaler 3 2>; */
+/**/
+/*     scroll { */
+/*         layers = <1>; */
+/*         input-processors = <&zip_xy_to_scroll_mapper>; */
+/*     }; */
+/* }; */
+
